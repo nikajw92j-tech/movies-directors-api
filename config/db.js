@@ -3,7 +3,9 @@ const mongoose = require('mongoose')
 // Connects to MongoDB using the MONGO_URI from the .env file
 const connectToDb = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI)
+        // MONGO_URI from our .env, or MONGODB_URI which the Vercel + MongoDB Atlas integration creates
+        const uri = process.env.MONGO_URI || process.env.MONGODB_URI
+        await mongoose.connect(uri)
         console.log('connected to MongoDB successfully')
     } catch (error) {
         console.log('could not connect to MongoDB:', error.message)
