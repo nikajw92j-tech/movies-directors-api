@@ -1,5 +1,7 @@
 # Movies & Directors API
 
+**Live API:** https://movies-directors-api.vercel.app (try [/movies](https://movies-directors-api.vercel.app/movies) or [/directors](https://movies-directors-api.vercel.app/directors))
+
 A REST API built with **Node.js, Express, MongoDB and Mongoose**.
 It has two resources, **Directors** and **Movies**, with a **One-to-Many** relationship:
 one director can have many movies, and each movie belongs to exactly one director.
@@ -246,7 +248,22 @@ DELETE http://localhost:3000/movies/MOVIE_ID
 
 ---
 
-## 4. How the relationship is kept in sync
+### Testing the live version
+
+Use the same requests, but replace `http://localhost:3000` with `https://movies-directors-api.vercel.app`.
+
+---
+
+## 4. Deployment (Vercel)
+
+- `vercel.json` tells Vercel to run `server.js` with `@vercel/node` and send every URL to it.
+- `server.js` exports `app`, and only calls `app.listen()` when it is NOT running on Vercel.
+- The database is a free MongoDB Atlas cluster, added through Vercel's MongoDB Atlas integration. It creates the `MONGODB_URI` environment variable automatically, and `config/db.js` reads `MONGO_URI || MONGODB_URI`.
+- The Vercel project is connected to this GitHub repo, so every `git push` to `main` deploys automatically.
+
+---
+
+## 5. How the relationship is kept in sync
 
 | Action | What happens in the database |
 |---|---|
